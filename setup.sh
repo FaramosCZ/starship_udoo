@@ -133,6 +133,8 @@ allowstreamlocalforwarding no
 PermitTTY yes
 permituserrc no
 PrintLastLog no
+
+UsePAM yes
 ' > /etc/ssh/sshd_config
 
 # =============================================================
