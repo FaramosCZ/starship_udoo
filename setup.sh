@@ -144,6 +144,9 @@ PrintLastLog no
 UsePAM yes
 ' > /etc/ssh/sshd_config
 
+# DISABLE FIREWALL (for now), so we will be able to connect the configured port
+systemctl disable firewall
+
 # =============================================================
 
 # CREATE CONTAINER MANAGER ACCOUNT
