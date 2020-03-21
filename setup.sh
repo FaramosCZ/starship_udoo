@@ -150,12 +150,12 @@ dnf install -y podman
 # =============================================================
 
 # DESKTOP ENVIRONMENT SET-UP
-dnf install -y @lxde-desktop
+# dnf install -y @lxde-desktop
 
 # By default, boot to headless server mode:
 systemctl set-default multi-user.target
 
 # Here's how to switch to the DE GUI mode
-# systemctl isolate multi-user.target
+# systemctl isolate graphical.target
 
 # =============================================================
