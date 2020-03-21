@@ -28,6 +28,13 @@ dnf install -y unzip
 
 # =============================================================
 
+# GIT CONFIGURATION
+git config --global user.email "udoo@udoo.server"
+git config --global user.name "UDOO"
+git config --global core.editor "nano"
+
+# =============================================================
+
 ### SECURITY HARDENING:
 
 # Create Admin user & group
