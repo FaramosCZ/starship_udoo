@@ -127,3 +127,8 @@ UsePAM yes
 # DISABLE FIREWALL (for now), so we will be able to connect the configured port
 systemctl disable firewalld
 systemctl stop firewalld
+
+# ENABLE SSHD
+systemctl enable sshd
+systemctl restart sshd
+
