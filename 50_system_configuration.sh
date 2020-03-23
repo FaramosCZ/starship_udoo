@@ -25,6 +25,10 @@ dnf update -y
 # Install compression programs
 dnf install -y unzip
 
+# Set local time
+rm -f /etc/localtime || :
+ln -sf /usr/share/zoneinfo/Europe/Prague /etc/localtime
+
 # =============================================================
 
 # GIT CONFIGURATION
