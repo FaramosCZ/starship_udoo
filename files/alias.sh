@@ -1,9 +1,9 @@
 shopt -s expand_aliases
 
 # user defined aliases
-alias EDITOR='nano'
-alias UAEDITOR='nano'
-alias VISUAL='nano'
+export EDITOR=nano
+export UAEDITOR=nano
+export VISUAL=nano
 
 alias N='nano '
 
