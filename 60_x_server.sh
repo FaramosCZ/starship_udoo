@@ -4,7 +4,7 @@ set -x
 # =============================================================
 
 # Install minimal set of Xorg packages
-dnf install xorg-x11-server-Xorg xorg-x11-xinit xterm twm
+dnf install -y xorg-x11-server-Xorg xorg-x11-xinit xterm twm
 
 # =============================================================
 
