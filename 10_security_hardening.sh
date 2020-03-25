@@ -23,8 +23,7 @@ echo "udoo:udoo" | chpasswd
 # Grant full sudo priviledges to the 'udoo_admins' group
 dnf install -y sudo
 
-echo -e \
-'
+cat << EOF > /etc/sudoers
 Defaults   !visiblepw
 Defaults    always_set_home
 Defaults    match_group_by_gid
@@ -38,19 +37,17 @@ Defaults    env_keep += "LC_TIME LC_ALL LANGUAGE LINGUAS _XKB_CHARSET XAUTHORITY
 Defaults    secure_path = /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 #includedir /etc/sudoers.d
-'  > /etc/sudoers
+EOF
 
-echo -e \
-'
+cat << EOF > /etc/sudoers.d/udoo_defaults
 Defaults   log_input, log_output
 Defaults   shell_noargs
-' > /etc/sudoers.d/udoo_defaults
+EOF
 
-echo -e \
-'
+cat << EOF > /etc/sudoers.d/udoo_admins
 Defaults:%udoo_admins   timestamp_timeout=60, logfile=/var/log/sudolog-udoo_admins
 %udoo_admins ALL=(ALL) ALL
-' > /etc/sudoers.d/udoo_admins
+EOF
 
 # ----------------------------------------------------------
 
@@ -84,8 +81,7 @@ rm moduli-4096
 
 
 # Allow only the most secure algorithms in the /etc/ssh/sshd_config
-echo -e \
-'
+cat << EOF > /etc/ssh/sshd_config
 Ciphers=aes256-gcm@openssh.com,chacha20-poly1305@openssh.com,aes256-ctr
 MACs=hmac-sha2-512-etm@openssh.com
 KexAlgorithms=curve25519-sha256@libssh.org,diffie-hellman-group14-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512
@@ -121,7 +117,7 @@ permituserrc no
 PrintLastLog no
 
 UsePAM yes
-' > /etc/ssh/sshd_config
+EOF
 
 
 # DISABLE FIREWALL (for now), so we will be able to connect the configured port

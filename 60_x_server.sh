@@ -17,16 +17,14 @@ dnf install -y xorg-x11-server-Xorg xorg-x11-xinit xterm twm
 # ------------------------------------------------------------
 
 # Allow anybody to start X
-echo -e \
-'
+cat << EOF > /etc/X11/Xwrapper.config
 allowed_users = anybody
-' > /etc/X11/Xwrapper.config
+EOF
 
 # ------------------------------------------------------------
 
 # Create .xinitrc configuration file
-echo -e \
-'
+cat << EOF > /home/lod/.xinitrc
 xset s off         # don't activate screensaver
 xset -dpms         # disable DPMS (Energy Star) features.
 xset s noblank     # don't blank the video device
@@ -34,14 +32,15 @@ xset s noblank     # don't blank the video device
 xsetroot -solid gray &
 xterm -g 80x24+0+0 &
 twm
-' > /home/lod/.xinitrc
+EOF
+
+exit 1
 
 # ------------------------------------------------------------
 
 # Create systemd service and bind it to the 'graphical.target'
 
-echo -e \
-'
+cat << EOF > /usr/lib/systemd/system/xinit.service
 [Unit]
 Description=xinit
 Documentation=man:xinit(1)
@@ -60,7 +59,7 @@ RestartSec=5s
 [Install]
 Alias=display-manager.service
 WantedBy=graphical.target
-' > /usr/lib/systemd/system/xinit.service
+EOF
 
 # Apply the new service
 systemctl daemon-reload
@@ -79,7 +78,8 @@ systemctl set-default graphical.target
 # There might be one last thing, regarding containers.
 # Non privileged containers doesn't have SELinux access to certain locations, so me must update the SELinux rules
 
-dnf install /usr/bin/audit2allow
+# Install audit2allow
+dnf install -y policycoreutils-python-utils
 
 # You might want to:
 #  audit2allow -a -t container_t
