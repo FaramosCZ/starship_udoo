@@ -11,6 +11,8 @@ EOF
 # Set Kernel (dmesg) verbosity / log level
 echo 'GRUB_CMDLINE_LINUX="loglevel=3"' >> /etc/default/grub
 sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
+# Apply the chnages by reinstalling kernel ... sigh, there must be an easier way :(
+dnf reinstall -y kernel-core
 
 # Set locale and timezone
 localectl set-locale LANG="en_US.UTF-8"
