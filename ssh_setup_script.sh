@@ -79,6 +79,7 @@ systemctl start firewalld
 firewall-cmd --zone=public --add-port=23253/tcp --permanent
 
 # Allow ssh port in SELinux
+dnf install -y /usr/sbin/semanage
 semanage boolean -m --on nis_enabled
 
 # APPLY FIREWALL CHANGES
