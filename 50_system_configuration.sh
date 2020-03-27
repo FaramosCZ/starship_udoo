@@ -10,9 +10,7 @@ EOF
 
 # Set Kernel (dmesg) verbosity / log level
 echo 'GRUB_CMDLINE_LINUX="loglevel=3"' >> /etc/default/grub
-sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
-# Apply the chnages by reinstalling kernel ... sigh, there must be an easier way :(
-dnf reinstall -y kernel-core
+grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
 
 # Set locale and timezone
 localectl set-locale LANG="en_US.UTF-8"
@@ -46,13 +44,13 @@ useradd lod
 echo "lod:lod" | chpasswd
 
 # GIT CONFIGURATION
-su -c 'git config --global user.email "lod@udoo.server"' lod
-su -c 'git config --global user.name "LOD"' lod
-su -c 'git config --global core.editor "nano"' lod
+su - -c 'git config --global user.email "lod@udoo.server"' lod
+su - -c 'git config --global user.name "LOD"' lod
+su - -c 'git config --global core.editor "nano"' lod
 
 # Fetch the container repository
 pushd /home/lod
-su -c "git clone https://github.com/FaramosCZ/UDOO_containers.git"
+su - -c "git clone https://github.com/FaramosCZ/UDOO_containers.git" lod
 popd
 
 # Install podman
