@@ -24,7 +24,7 @@ EOF
 # ------------------------------------------------------------
 
 # Create .xinitrc configuration file
-cat << EOF > /home/lod/.xinitrc
+su -c "cat" lod << EOF > /home/lod/.xinitrc
 xset s off         # don't activate screensaver
 xset -dpms         # disable DPMS (Energy Star) features.
 xset s noblank     # don't blank the video device
@@ -33,8 +33,6 @@ xsetroot -solid gray &
 xterm -g 80x24+0+0 &
 twm
 EOF
-
-exit 1
 
 # ------------------------------------------------------------
 
@@ -51,8 +49,6 @@ Group=lod
 
 Type=simple
 ExecStart=/usr/bin/xinit
-#ExecStart=/usr/bin/xinit /etc/X11/xinit/xinitrc
-#ExecStart=/usr/bin/startx
 Restart=on-failure
 RestartSec=5s
 
@@ -69,6 +65,8 @@ systemctl enable xinit
 
 # By default, boot to graphical target:
 systemctl set-default graphical.target
+# Switch to it now
+systemctl isolate graphical.target
 
 # Here's how to switch to the "headless server" mode:
 #systemctl isolate multi-user.target
