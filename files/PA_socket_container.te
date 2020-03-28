@@ -1,0 +1,14 @@
+
+module PA_socket_container 1.0;
+
+require {
+	type unconfined_t;
+	type dri_device_t;
+	type container_t;
+	class chr_file { getattr ioctl read write };
+	class unix_stream_socket connectto;
+}
+
+#============= container_t ==============
+allow container_t dri_device_t:chr_file { getattr ioctl read write };
+allow container_t unconfined_t:unix_stream_socket connectto;

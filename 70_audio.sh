@@ -10,6 +10,9 @@ dnf install -y pulseaudio pulseaudio-utils alsa-plugins-pulseaudio pulseaudio-mo
 
 # AUDIO SET-UP
 
+# update SELinux rules
+semodule -i files/PA_socket_container.pp
+
 # Pulseaudio server can't run under root.
 # It offers a user systemd service, which can be started by all (non-root) users as following:
 #   systemctl --user start pulseaudio
