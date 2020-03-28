@@ -11,6 +11,8 @@ EOF
 # Set Kernel (dmesg) verbosity / log level
 echo 'GRUB_CMDLINE_LINUX="loglevel=3"' >> /etc/default/grub
 grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
+# Do not forward kernel messages to systemd journal
+echo 'ReadKMsg=no' >> /etc/systemd/journald.conf
 
 # Set locale and timezone
 localectl set-locale LANG="en_US.UTF-8"
@@ -61,4 +63,9 @@ dnf install -y podman
 # Setup system-wide BASH aliases
 cp files/alias.sh /etc/profile.d/alias.sh
 
+# =============================================================
+
+
+
+# =============================================================
 # =============================================================
